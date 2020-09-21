@@ -1,4 +1,4 @@
-package id.ac.ui.cs.tktpl.lab1;
+package id.ac.ui.cs.mobileprogramming.reyhan.helloworld;
 
 import android.os.Bundle;
 
@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import id.ac.ui.cs.mobileprogramming.helloworld.R;
 
 public class MainActivity extends AppCompatActivity {
 
