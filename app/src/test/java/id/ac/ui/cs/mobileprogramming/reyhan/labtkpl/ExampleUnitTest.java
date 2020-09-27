@@ -11,7 +11,28 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void counter_startsWithZero() {
+        Counter counter = new Counter();
+        assertEquals(counter.getCount(), 0);
+    }
+
+    @Test
+    public void counter_addCountByOne() {
+        Counter counter = new Counter();
+        int countBefore = counter.getCount();
+        counter.addCount();
+        int countAfter = counter.getCount();
+        assertEquals(countAfter, countBefore+1);
+    }
+
+    @Test
+    public void counter_addCountByThree() {
+        Counter counter = new Counter();
+        int countBefore = counter.getCount();
+        counter.addCount();
+        counter.addCount();
+        counter.addCount();
+        int countAfter = counter.getCount();
+        assertEquals(countAfter, countBefore+3);
     }
 }
