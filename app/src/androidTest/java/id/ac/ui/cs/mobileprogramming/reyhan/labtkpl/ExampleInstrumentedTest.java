@@ -1,13 +1,21 @@
 package id.ac.ui.cs.mobileprogramming.reyhan.labtkpl;
 
 import android.content.Context;
-
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.filters.SmallTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
 
 /**
@@ -16,12 +24,33 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
+@SmallTest
 public class ExampleInstrumentedTest {
+    @Rule
+    public ActivityScenarioRule<MainActivity> activityRule
+            = new ActivityScenarioRule<>(MainActivity.class);
+
     @Test
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         assertEquals("id.ac.ui.cs.mobileprogramming.reyhan.labtkpl", appContext.getPackageName());
+    }
+
+    @Test
+    public void initialText() {
+        onView(withId(R.id.countDisplay)).check(matches(isDisplayed()));
+        withText(R.id.countDisplay).matches(withText("Click (+) to start count!"));
+    }
+
+    @Test
+    public void clickCountButton() {
+        onView(withId(R.id.fab)).perform(click());
+        withText(R.id.countDisplay).matches(withText("1"));
+        onView(withId(R.id.fab)).perform(click());
+        withText(R.id.countDisplay).matches(withText("2"));
+        onView(withId(R.id.fab)).perform(click());
+        withText(R.id.countDisplay).matches(withText("3"));
     }
 }
