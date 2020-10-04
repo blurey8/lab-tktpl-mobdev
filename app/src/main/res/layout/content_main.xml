@@ -3,18 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/timeCounter"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="00:00:00"
+        android:textColor="#009688"
+        android:textSize="50dp"
+        android:textStyle="bold" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexboxLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:justifyContent="space_around"
+        app:layout_constraintTop_toBottomOf="@+id/timeCounter"
+        tools:layout_editor_absoluteX="0dp"> <!-- or "space_between", "space_evenly" -->
+
+        <Button
+            android:id="@+id/primaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start" />
+
+        <Button
+            android:id="@+id/secondaryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset" />
+    </com.google.android.flexbox.FlexboxLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
