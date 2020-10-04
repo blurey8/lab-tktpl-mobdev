@@ -1,16 +1,17 @@
 package id.ac.ui.cs.mobileprogramming.reyhan.labtkpl;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
+
+// Source: https://medium.com/@muhzanard25/membuat-stopwatch-dengan-android-studio-8902e592fb6a
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,36 +21,46 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Stopwatch");
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        TextView timeCounter = findViewById(R.id.timeCounter);
+        Button primary = findViewById(R.id.primaryButton);
+        Button secondary = findViewById(R.id.secondaryButton);
+        final Stopwatch stopwatch = new Stopwatch(timeCounter, primary, secondary);
+
+        primary.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                if (stopwatch.isRunning) {
+                    stopwatch.pause();
+                } else {
+                    stopwatch.start();
+                }
             }
         });
+
+        secondary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopwatch.reset();
+            }
+        });
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+        // Source: https://stackoverflow.com/a/7240268/10316220
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MainActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }
