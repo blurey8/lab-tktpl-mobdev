@@ -18,23 +18,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Android NDK Demo Home Page");
+        toolbar.setTitle("Native Demo Home Page");
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         final TextView counter = findViewById(R.id.counter);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                count = incrementNumber(count);
+                count++;
                 counter.setText(String.valueOf(count));
             }
         });
     }
-
-    static {
-        System.loadLibrary("native-lib");
-    }
-
-    private native int incrementNumber(int num);
 }
 
